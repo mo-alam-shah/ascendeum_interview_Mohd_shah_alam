@@ -1,0 +1,34 @@
+--Write a query to calculate the average age of employees in each department.
+SELECT department_id, AVG(AGE) FROM employees
+GROUP BY department_id;
+
+
+
+--Write a query to find the department with the highest number of employees whose age is above 40.
+with employeecount as
+(select count(*) as emp_tot_count, department_id from employees where age > 40 
+group by department_id
+)
+select max(ec.emp_tot_count), d.name from employeecount ec inner join departments d on ec.department_id = d.id
+group by department_id order by emp_tot_count desc limit 1
+
+
+
+--Write a query to retrieve the count of employees who have in joined in last 100 days.
+select COUNT(*) FROM EMPLOYEES where joining_date >= DATE_SUB(CURDATE(), INTERVAL(100) DAY)
+
+
+
+
+--Write a query to update the joining date of all employees in the HR department to the yesterday.
+update employees e inner join departments d on d.id = e.department_id
+set e.joining_date = DATE_SUB(CURDATE(), INTERVAL(1) DAY)
+where d.name = 'HR';
+
+select COUNT(*) FROM EMPLOYEES where joining_date >= DATE_SUB(CURDATE(), INTERVAL(100) DAY)
+
+
+
+--Write a query to retrieve the count of employees who have in joined in last 100 days.
+select COUNT(*) FROM EMPLOYEES where joining_date >= DATE_SUB(CURDATE(), INTERVAL(100) DAY)
+
